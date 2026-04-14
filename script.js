@@ -44,12 +44,26 @@ function adivinarPalabra(){
         actualizarHabilitarLetras();
     }
     else{
-        console.log("MAL");
+        console.log("BIEN");
     }
 }
 
 function actualizarHabilitarLetras(){
-
+    //recorrer todos los intentos, si no es el intento pertinente se desabilita, si no se habilita
+    listaPalabrasIntentos.forEach((divPalabra,index) => {
+        //lista con los divs dentro de la palbra que toca, despues se recorrera y se añadira o quiotara el disable
+        const listaInputsLetras = divPalabra.querySelectorAll(".contenedor-letra > input");
+        if(index!==contadorIntentos){
+            listaInputsLetras.forEach(input => {
+                input.disabled = true;
+            });
+        }
+        else{
+            listaInputsLetras.forEach(input => {
+                input.disabled = false;
+            });
+        }
+    });
 }
 
 function compararPalabra(listaInputsLetras,arrayPalabraUsuario){
