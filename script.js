@@ -1,5 +1,47 @@
+let listaPalabras = [
+"casa","perro","gato","mesa","silla","libro","coche","avion","barco","tren",
+"calle","plaza","campo","playa","rio","lago","monte","bosque","cielo","nube",
+"llave","puerta","ventana","pared","techo","suelo","jardin","flor","hoja","rama",
+"fruta","queso","pan","leche","carne","pasta","arroz","sopa","huevo","dulce",
+"sal","azul","rojo","verde","negro","blanco","gris","rosa","marron","dorado",
+"plata","cobre","hierro","acero","oro","plomo","zinc","metal","arena","roca",
+"tierra","barro","humo","fuego","agua","viento","clima","tiempo","dia","noche",
+"tarde","manana","lunes","martes","jueves","viernes","sabado","domingo","mes",
+"enero","febrero","marzo","abril","mayo","junio","julio","agosto","octubre",
+"noviem","dicie","amigo","amiga","padre","madre","hermano","hermana","tio","tia",
+"primo","prima","hijo","hija","nieto","nieta","gente","grupo","equipo","clase",
+"curso","nivel","grado","escuela","colegio","oficio","trabajo","puesto","cargo",
+"jefe","lider","autor","actor","actriz","pintor","poeta","musico","doctor","medico",
+"salud","virus","cura","dosis","plaga","dolor","fiebre","tos","nariz","boca",
+"ojos","cara","mano","brazo","pierna","pie","cuerpo","mente","alma","idea",
+"mente","logica","razon","dato","hecho","caso","tema","punto","parte","serie",
+"lista","grupo","orden","nivel","paso","forma","modo","tipo","clase","estilo",
+"linea","curva","plano","figura","color","tono","sombra","luz","brillo","foco",
+"sonido","ruido","voz","musica","ritmo","canto","nota","clave","tono","eco",
+"juego","nivel","pista","meta","gol","red","campo","equipo","liga","torneo",
+"carta","dado","ficha","turno","regla","punto","marca","tabla","juego","azar",
+"codigo","clave","token","dato","red","nodo","cable","wifi","senal","router",
+"web","app","login","user","clave","error","fallo","bug","patch","build",
+"test","debug","script","funcion","clase","objeto","array","lista","valor","tipo",
+"venta","compra","precio","costo","gasto","saldo","cuota","pago","deuda","banco",
+"caja","cuenta","tarjeta","credito","debito","firma","legal","norma","ley","regla",
+"justo","culpa","caso","juicio","prueba","testigo","juez","corte","fallo","pena",
+"viaje","ruta","mapa","guia","hotel","vuelo","tren","taxi","bus","metro",
+"parada","salida","llegar","salir","andar","correr","subir","bajar","girar","seguir",
+"mirar","ver","oido","oir","tocar","sentir","oler","gustar","probar","saber",
+"pensar","creer","dudar","amar","odiar","reir","llorar","gritar","callar","hablar",
+"decir","contar","sumar","restar","medir","pesar","cortar","romper","unir","crear",
+"formar","usar","hacer","tener","dar","tomar","dejar","poner","quitar","abrir",
+"cerrar","entrar","salir","vivir","morir","nacer","crecer","cambiar","seguir","parar",
+"ganar","perder","buscar","hallar","lograr","fallar","intento","prueba","error","exito",
+"rapido","lento","corto","largo","alto","bajo","ancho","estre","grande","chico",
+"nuevo","viejo","bueno","malo","mejor","peor","igual","distin","cerca","lejos",
+"claro","oscuro","duro","suave","fuerte","debil","calido","frio","seco","humedo",
+"limpio","sucio","lleno","vacio","rico","pobre","caro","barato","facil","dificil"
+];
+
 //Selecionar palabra
-const palabraElegida = "abuela";
+const palabraElegida = "";
 let palabra = [];
 
 //Contenedores
@@ -13,25 +55,40 @@ const btnAdivinarPalabra = document.getElementById("btn-adivinarPalabra");
 let juegoGanado = false;
 
 function inicio() {
+
     console.log("EMPIEZA ----------");
-    obtenerPalabraAleatoria();
-    configuracionPalabraInicial();
+    obtenerPalabraAleatoriaLocal(6);
+    // obtenerPalabraAleatoriaConApi();
 }
 
-async function obtenerPalabraAleatoria() {
+function obtenerPalabraAleatoriaLocal(longitud){
+    
+    const lista = longitud
+        ? listaPalabras.filter(p => p.length == longitud)
+        : listaPalabras;
+
+    const index = Math.floor(Math.random() * lista.length);
+    // palabraElegida = lista[index];
+    configuracionPalabraInicial(lista[index]);
+}
+
+async function obtenerPalabraAleatoriaConApi() {
     try {
         const response = await fetch("http://localhost:3000/api-palabras/palabra-random?longitud=6");
         const data = await response.json();
-        console.log(data);
-        configuracionPalabraInicial(data);
+        // console.log(data);
+        if(data!==null){configuracionPalabraInicial(data)};
+        
     } catch (error) {
-        console.error("Error:", error);
+        
+        // console.error("Error:", error);
     }
 }
 
 function configuracionPalabraInicial(palabraE) {
     let palabraMinuscula = palabraE.toLowerCase();
     palabra = palabraMinuscula.split("");
+    console.log("palabra : " + palabra);
 }
 
 function adivinarPalabra() {
@@ -168,11 +225,28 @@ document.addEventListener("keyup", function (event) {
 
     if (event.key === "Backspace") {
         if (contadorLetraActiva > 0) {
+            // if(listaInputsLetras[contadorLetraActiva].value = "";)
             contadorLetraActiva--;
             listaInputsLetras[contadorLetraActiva].value = "";
             listaInputsLetras[contadorLetraActiva].focus();
         }
     }
+
+    if (event.key === "ArrowRight") {
+    if (contadorLetraActiva + 1 < listaInputsLetras.length) {
+        listaInputsLetras[contadorLetraActiva].blur();
+        contadorLetraActiva++;
+        listaInputsLetras[contadorLetraActiva].focus();
+    }
+}
+
+    if (event.key === "ArrowLeft") {
+    if (contadorLetraActiva > 0) {
+        listaInputsLetras[contadorLetraActiva].blur();
+        contadorLetraActiva--;
+        listaInputsLetras[contadorLetraActiva].focus();
+    }
+}
 
     if (event.key === "Enter") {
         adivinarPalabra();
