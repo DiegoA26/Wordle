@@ -19,128 +19,32 @@
         </header>
         <main>
             <section class="contenedor-principal">
-                <div class="contenedor-palabra">
-                    <div class="contenedor-letra"
-                    >
-                        <input autofocus type="text" maxlength="1" pattern="[a-zA-Z]"  />
-                    </div>
-                    <div class="contenedor-letra">
-                        <input type="text" maxlength="1" pattern="[a-zA-Z]"  />
-                    </div>
-                    <div class="contenedor-letra">
-                        <input type="text" maxlength="1" pattern="[a-zA-Z]"  />
-                    </div>
-                    <div class="contenedor-letra">
-                        <input type="text" maxlength="1" pattern="[a-zA-Z]"  />
-                    </div>
-                    <div class="contenedor-letra">
-                        <input type="text" maxlength="1" pattern="[a-zA-Z]"  />
-                    </div>
-                    <div class="contenedor-letra">
-                        <input type="text" maxlength="1" pattern="[a-zA-Z]"  />
-                    </div>
-                </div>
-                <div class="contenedor-palabra">
-                    <div class="contenedor-letra">
-                        <input type="text" maxlength="1" pattern="[a-zA-Z]" disabled />
-                    </div>
-                    <div class="contenedor-letra">
-                        <input type="text" maxlength="1" pattern="[a-zA-Z]" disabled />
-                    </div>
-                    <div class="contenedor-letra">
-                        <input type="text" maxlength="1" pattern="[a-zA-Z]" disabled />
-                    </div>
-                    <div class="contenedor-letra">
-                        <input type="text" maxlength="1" pattern="[a-zA-Z]" disabled />
-                    </div>
-                    <div class="contenedor-letra">
-                        <input type="text" maxlength="1" pattern="[a-zA-Z]" disabled />
-                    </div>
-                    <div class="contenedor-letra">
-                        <input type="text" maxlength="1" pattern="[a-zA-Z]" disabled />
-                    </div>
-                </div>
-                <div class="contenedor-palabra">
-                    <div class="contenedor-letra">
-                        <input type="text" maxlength="1" pattern="[a-zA-Z]" disabled />
-                    </div>
-                    <div class="contenedor-letra">
-                        <input type="text" maxlength="1" pattern="[a-zA-Z]" disabled />
-                    </div>
-                    <div class="contenedor-letra">
-                        <input type="text" maxlength="1" pattern="[a-zA-Z]" disabled />
-                    </div>
-                    <div class="contenedor-letra">
-                        <input type="text" maxlength="1" pattern="[a-zA-Z]" disabled />
-                    </div>
-                    <div class="contenedor-letra">
-                        <input type="text" maxlength="1" pattern="[a-zA-Z]" disabled />
-                    </div>
-                    <div class="contenedor-letra">
-                        <input type="text" maxlength="1" pattern="[a-zA-Z]" disabled />
-                    </div>
-                </div>
-                <div class="contenedor-palabra">
-                    <div class="contenedor-letra">
-                        <input type="text" maxlength="1" pattern="[a-zA-Z]" disabled />
-                    </div>
-                    <div class="contenedor-letra">
-                        <input type="text" maxlength="1" pattern="[a-zA-Z]" disabled />
-                    </div>
-                    <div class="contenedor-letra">
-                        <input type="text" maxlength="1" pattern="[a-zA-Z]" disabled />
-                    </div>
-                    <div class="contenedor-letra">
-                        <input type="text" maxlength="1" pattern="[a-zA-Z]" disabled />
-                    </div>
-                    <div class="contenedor-letra">
-                        <input type="text" maxlength="1" pattern="[a-zA-Z]" disabled />
-                    </div>
-                    <div class="contenedor-letra">
-                        <input type="text" maxlength="1" pattern="[a-zA-Z]" disabled />
-                    </div>
-                </div>
-                <div class="contenedor-palabra">
-                    <div class="contenedor-letra">
-                        <input type="text" maxlength="1" pattern="[a-zA-Z]" disabled />
-                    </div>
-                    <div class="contenedor-letra">
-                        <input type="text" maxlength="1" pattern="[a-zA-Z]" disabled />
-                    </div>
-                    <div class="contenedor-letra">
-                        <input type="text" maxlength="1" pattern="[a-zA-Z]" disabled />
-                    </div>
-                    <div class="contenedor-letra">
-                        <input type="text" maxlength="1" pattern="[a-zA-Z]" disabled />
-                    </div>
-                    <div class="contenedor-letra">
-                        <input type="text" maxlength="1" pattern="[a-zA-Z]" disabled />
-                    </div>
-                    <div class="contenedor-letra">
-                        <input type="text" maxlength="1" pattern="[a-zA-Z]" disabled />
-                    </div>
-                </div>
-                                <div class="contenedor-palabra">
-                    <div class="contenedor-letra">
-                        <input type="text" maxlength="1" pattern="[a-zA-Z]" disabled />
-                    </div>
-                    <div class="contenedor-letra">
-                        <input type="text" maxlength="1" pattern="[a-zA-Z]" disabled />
-                    </div>
-                    <div class="contenedor-letra">
-                        <input type="text" maxlength="1" pattern="[a-zA-Z]" disabled />
-                    </div>
-                    <div class="contenedor-letra">
-                        <input type="text" maxlength="1" pattern="[a-zA-Z]" disabled />
-                    </div>
-                    <div class="contenedor-letra">
-                        <input type="text" maxlength="1" pattern="[a-zA-Z]" disabled />
-                    </div>
-                    <div class="contenedor-letra">
-                        <input type="text" maxlength="1" pattern="[a-zA-Z]" disabled />
-                    </div>
-                </div>
+                
                 <button type="button" id="btn-adivinarPalabra">Intentar</button>
+            </section>
+
+            <section class="pantalla-configuracion">
+                <h1>Configuracion de la Partida</h1>
+                <form action="#">  
+                    <label for="nIntentos">Numero de intentos</label>
+                    <select name="intentos" id="nIntentos">
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>                            
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                    </select>
+                    <label for="nLetras">Numero de letras</label>
+                    <select name="intentos" id="nLetras">
+                        <option value="4">4</option>
+                        <option value="5">5</option>                            
+                        <option value="6">6</option>
+                    </select>
+                    
+                </form>
+                <button type="button" id="btnConfigurarPartida">Jugar</button>
             </section>
         </main>
         <script type="module" src="script.js"></script>

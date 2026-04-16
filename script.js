@@ -43,23 +43,93 @@ let listaPalabras = [
 //Selecionar palabra
 const palabraElegida = "";
 let palabra = [];
+let longitudPalabra = 0;
 
 //Contenedores
-const listaPalabrasIntentos = document.querySelectorAll(".contenedor-palabra");
+const contenedorPrincipal = document.querySelector(".contenedor-principal");
+const contenedorConfiguracion = document.querySelector(".pantalla-configuracion");
+
+let listaPalabrasIntentos = document.querySelectorAll(".contenedor-palabra");
 const intentosTotales = listaPalabrasIntentos.length;
+
+
+
 let contadorIntentos = 0;
 let contadorLetraActiva = 0;
 
+const btnConfigurarPartida = document.getElementById("btnConfigurarPartida");
 const btnAdivinarPalabra = document.getElementById("btn-adivinarPalabra");
 
+let juegoIniciado = false;
 let juegoGanado = false;
 
 function inicio() {
-
+    prepararPartida();
+    añadirFuncionalidadObjetosLetras();
     console.log("EMPIEZA ----------");
-    obtenerPalabraAleatoriaLocal(6);
+
+    obtenerPalabraAleatoriaLocal(longitudPalabra);
     // obtenerPalabraAleatoriaConApi();
+
+    juegoIniciado = true;
 }
+
+
+
+function prepararPartida(){
+    const nIntentos = document.getElementById("nIntentos").value;
+    const nLetras = document.getElementById("nLetras").value;
+
+    longitudPalabra = nLetras;
+
+    console.log("Preparando partida... Intentos: " + nIntentos + " Palabra con: " + nLetras + " letras");
+
+
+    for(let iIntentos = 0; iIntentos < nIntentos; iIntentos++){
+        let nuevoIntento = document.createElement("div");
+        nuevoIntento.classList.add("contenedor-palabra");
+        
+        for(let iLetras = 0; iLetras < nLetras; iLetras++){
+            let nuevaLetra = document.createElement("div");
+            nuevaLetra.classList.add("contenedor-letra");
+            nuevaLetra.innerHTML = `<input type="text" maxlength="1" pattern="[a-zA-Z]"  />`;
+            if(iIntentos===0 && iLetras===0){
+                nuevaLetra.focus();
+            }
+
+            if(iIntentos>0){
+                nuevaLetra.disabled = true;
+            }
+            nuevoIntento.appendChild(nuevaLetra);
+        }
+
+        contenedorPrincipal.appendChild(nuevoIntento);
+    }
+
+    listaPalabrasIntentos = document.querySelectorAll(".contenedor-palabra");
+
+    contenedorConfiguracion.style.display = "none";
+}
+
+function añadirFuncionalidadObjetosLetras (){
+    listaPalabrasIntentos.forEach(palabra => {
+        const listaLetras = palabra.querySelectorAll(".contenedor-letra");
+        listaLetras.forEach((letra,index) => {
+            letra.setAttribute("posicion", index);
+            letra.addEventListener("click", ()=>clickLetra(letra, index));
+        });
+    });
+
+}
+
+function clickLetra(objetoLetra, indice){
+    if(objetoLetra.querySelector("input").disabled === false){
+        contadorLetraActiva = indice;
+    }
+
+    console.log(contadorLetraActiva);
+}
+
 
 function obtenerPalabraAleatoriaLocal(longitud){
     
@@ -157,6 +227,9 @@ function compararPalabra(listaInputsLetras, arrayPalabraUsuario) {
             contador++;
             listaInputsLetras[index].classList.add("correcto");
         } else if (palabra.includes(letraUsuario)) {
+            
+
+
             listaInputsLetras[index].classList.add("presente");
         } else {
             listaInputsLetras[index].classList.add("incorrecto");
@@ -198,9 +271,11 @@ function ganarPartida() {
 }
 
 btnAdivinarPalabra.addEventListener("click", () => adivinarPalabra());
+btnConfigurarPartida.addEventListener("click", ()=>inicio());
 
+// FUNCIONES DE TECLAS
 document.addEventListener("keyup", function (event) {
-    if (juegoGanado) {
+    if (juegoGanado || !juegoIniciado) {
         return;
     }
 
@@ -215,7 +290,10 @@ document.addEventListener("keyup", function (event) {
             listaInputsLetras[contadorLetraActiva].value = letra;
             listaInputsLetras[contadorLetraActiva].blur();
 
-            contadorLetraActiva++;
+            if((contadorLetraActiva+1)<listaInputsLetras.length){
+                contadorLetraActiva++;
+            }
+            
 
             if (contadorLetraActiva < listaInputsLetras.length) {
                 listaInputsLetras[contadorLetraActiva].focus();
@@ -226,8 +304,9 @@ document.addEventListener("keyup", function (event) {
     if (event.key === "Backspace") {
         if (contadorLetraActiva > 0) {
             // if(listaInputsLetras[contadorLetraActiva].value = "";)
-            contadorLetraActiva--;
+            
             listaInputsLetras[contadorLetraActiva].value = "";
+            contadorLetraActiva--;
             listaInputsLetras[contadorLetraActiva].focus();
         }
     }
@@ -253,4 +332,7 @@ document.addEventListener("keyup", function (event) {
     }
 });
 
-inicio();
+
+// document.addEventListener("load", () => inicio());
+
+
